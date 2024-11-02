@@ -1,0 +1,17 @@
+[tool.black]
+line-length = 120
+
+[tool.mypy]
+check_untyped_defs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+ignore_missing_imports = true
+exclude = ["conf", "venv", "env","tests"]
+strict_equality = true
+pretty = true
+warn_redundant_casts = true
+no_strict_optional = true
+follow_imports="skip"
+
+[tool.pylint]
+max-line-length = 140

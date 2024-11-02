@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: Set up Python environment
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install mypy black pylint anybadge pytest pytest-cov
+          pip install -r requirements.txt
+          export PYTHONPATH=$(pwd)
+
+      - name: Run mypy
+        run: mypy --install-types --non-interactive --explicit-package-bases .
+
+      - name: Run Black (check code formatting)
+        run: black --check .
+
+      - name: Run pylint and generate badge
+        run: |
+          score=$(pylint --exit-zero pricehub | grep -oP "Your code has been rated at \K[0-9\.]+")
+          echo "PyLint score: $score"
+          mkdir -p .github/badges
+          anybadge --value=$score --file=.github/badges/pylint.svg --label=pylint --color=#007ec6 --overwrite
+
+      - name: Upload badge artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: badges
+          path: .github/badges/
+
+      - name: Commit and push badge
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+          git add .github/badges/*.svg
+          
+          git commit -m "Update PyLint badge" || echo "No changes to commit"
+          git push

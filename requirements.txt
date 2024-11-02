@@ -1,0 +1,4 @@
+pandas
+pydantic>=2.0.1
+arrow>=1.0.0
+requests
