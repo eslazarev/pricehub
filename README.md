@@ -5,7 +5,11 @@
 # pricehub
 
 **pricehub** is a Python package for retrieving OHLC (Open-High-Low-Close) data across various brokers' APIs with a unified interface. 
+
 It supports multiple markets, including spot and futures, and provides flexible timestamp inputs and a wide range of intervals.
+
+Effective trading begins with thorough data analysis, visualization, and backtesting. This package simplifies access to such data, providing a unified solution for retrieving OHLC information across various broker APIs.
+
 
 ## Key Features
 
