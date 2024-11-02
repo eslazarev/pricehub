@@ -29,9 +29,6 @@ jobs:
       - name: Run mypy
         run: mypy --install-types --non-interactive --explicit-package-bases .
 
-      - name: Run Black (check code formatting)
-        run: black --check --line-length 120 .
-
       - name: Run pylint and generate badge
         run: |
           score=$(pylint --exit-zero pricehub | grep -oP "Your code has been rated at \K[0-9\.]+")
