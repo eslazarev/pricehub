@@ -29,7 +29,6 @@ class BrokerBinanceABC(BrokerABC):
     ]
 
     def get_ohlc(self, get_ohlc_params: "GetOhlcParams") -> pd.DataFrame:  # type: ignore[name-defined]
-
         start_time = int(get_ohlc_params.start.timestamp() * 1000)
         end_time = int(get_ohlc_params.end.timestamp() * 1000)
 

@@ -32,12 +32,12 @@ jobs:
       - name: Build the package
         run: python -m build
 
-#      - name: Publish to PyPI Test
-#        env:
-#          TWINE_USERNAME: ${{ secrets.PYPI_TEST_USERNAME }}
-#          TWINE_PASSWORD: ${{ secrets.PYPI_TEST_PASSWORD }}
-#        run: |
-#          twine upload --repository-url https://test.pypi.org/legacy/ dist/*  --verbose
-#
-#      - name: Clean up build artifacts
-#        run: rm -rf dist build *.egg-info
+      - name: Publish to PyPI Test
+        env:
+          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        run: |
+          twine upload --repository-url https://upload.pypi.org/legacy/ dist/* --verbose
+
+      - name: Clean up build artifacts
+        run: rm -rf dist build *.egg-info

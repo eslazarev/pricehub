@@ -1,8 +1,10 @@
 """ Get OHLC data from a broker """
-
 import pandas as pd
 
 from pricehub.models import SupportedBroker, Timestamp, GetOhlcParams, Interval
+
+pd.set_option("display.max_columns", None)
+pd.set_option("display.width", None)
 
 
 def get_ohlc(
@@ -35,9 +37,3 @@ def get_ohlc_impl(get_ohlc_params: GetOhlcParams) -> pd.DataFrame:
     broker_class = get_ohlc_params.broker.get_broker_class()
     broker_instance = broker_class()
     return broker_instance.get_ohlc(get_ohlc_params)
-
-
-if __name__ == "__main__":
-    df = get_ohlc(broker="bybit_spot", symbol="BTCUSDT", interval="1h", start="2024-10-01", end="2024-10-02")
-    # df = get_ohlc(broker="binance_spot", symbol="BTCUSDT", interval="1h", start="2024-10-01", end="2024-10-02")
-    print(df)
