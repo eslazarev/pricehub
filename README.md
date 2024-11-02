@@ -46,7 +46,7 @@ from pricehub import get_ohlc
 df = get_ohlc(
     broker="binance_spot",
     symbol="BTCUSDT",
-    interval="1h",
+    interval="6h",
     start="2024-10-01",
     end="2024-10-02"
 )
@@ -71,8 +71,8 @@ df = get_ohlc(
     broker="bybit_spot",
     symbol="ETHUSDT",
     interval="1d",
-    start=1727740800.0, # Unix timestamp for "2024-10-01"
-    end=1728086400000, # Unix timestamp for "2024-10-05"
+    start=1727740800.0, # Unix timestamp in seconds for "2024-10-01"
+    end=1728086400000, # Unix timestamp in ms for "2024-10-05"
 )
 print(df)
 ```
