@@ -6,11 +6,12 @@ package_name = "pricehub"
 
 setup(
     name=package_name,
-    version="0.0.1",
+    version="0.0.2",
     packages=find_packages(),
     author="Evgenii Lazarev",
     author_email="elazarev@gmail.com",
     project_urls={
+        "GitHub": "https://github.com/eslazarev/pricehub",
         "LinkedIn": "https://www.linkedin.com/in/elazarev",
     },
     description="Open-High-Low-Close (OHLC) prices data from different brokers",
