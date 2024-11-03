@@ -14,10 +14,11 @@ Effective trading begins with thorough data analysis, visualization, and backtes
 ## Key Features
 
 - **Unified Interface**: Supports multiple brokers and markets (spot, futures) with a single interface.
-- **Flexible Intervals**: Choose from 1 minute to 1 month intervals.
-- **Timestamp Flexibility**: Accepts timestamps in various formats (int, float, string, Arrow, pandas, datetime).
+- **Unified Intervals**: Use the same interval format across all brokers.
+- **Timestamp Flexibility**: Accepts timestamps (start, end) in various formats (int, float, string, Arrow, pandas, datetime).
 - **No Credential Requirement**: Fetch public market data without authentication.
-- **Extended Date Ranges**: Unlike official libraries (e.g., Binance), this package imposes no limit on data retrieval (e.g., 200-day limit bypassed).
+- **Extended Date Ranges**: This package will paginate and collect all data across large date ranges.
+- **All fields from official API**: Retrieve all fields available in the official API (e.g., `Number of trades`, `Taker buy base asset volume`). 
 
 ### Supported Brokers
 - Binance Spot
@@ -43,7 +44,7 @@ pip install pricehub
 
 ### Example Usage
 
-#### Retrieve OHLC data from Binance Spot for a 1-hour interval
+#### Retrieve OHLC data from Binance Spot for a 6-hour interval
 ```python
 from pricehub import get_ohlc
 
@@ -91,9 +92,9 @@ Open time
 2024-10-05  2414.67  2428.69  2389.83  2414.54  106665.69595  2.573030e+08
 ```
 
-### API Reference
+### Function Reference
 
-#### `get_ohlc`
+#### `def get_ohlc(broker: SupportedBroker, symbol: str, interval: Interval, start: Timestamp, end: Timestamp) -> pd.DataFrame`
 
 Retrieves OHLC data for the specified broker, symbol, interval, and date range.
 
