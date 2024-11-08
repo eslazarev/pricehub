@@ -1,5 +1,5 @@
 ![CI](https://github.com/eslazarev/pricehub/workflows/CI/badge.svg)
-![Pylint](https://github.com/eslazarev/pricehub/blob/main/.github/badges/pylint.svg)
+![Pylint](https://raw.githubusercontent.com/eslazarev/pricehub/refs/heads/main/.github/badges/pylint.svg)
 ![Black](https://img.shields.io/badge/code%20style-black-000000.svg)
 
 # pricehub
@@ -42,6 +42,24 @@ Effective trading begins with thorough data analysis, visualization, and backtes
 ```bash
 pip install pricehub
 ```
+
+### Function Reference
+
+#### `def get_ohlc(broker: SupportedBroker, symbol: str, interval: Interval, start: Timestamp, end: Timestamp) -> pd.DataFrame`
+
+Retrieves OHLC data for the specified broker, symbol, interval, and date range.
+
+- **Parameters**:
+  - `broker`: The broker to fetch data from (e.g., `binance_spot`, `bybit_spot`).
+  - `symbol`: The trading pair symbol (e.g., `BTCUSDT`).
+  - `interval`: The interval for OHLC data (`1m`, `1h`, `1d`, etc.).
+  - `start`: Start time of the data (supports various formats).
+  - `end`: End time of the data (supports various formats).
+
+- **Returns**:
+  - `pandas.DataFrame`: A DataFrame containing OHLC data.
+
+---
 
 ## Quick Start
 
@@ -95,27 +113,6 @@ Open time
 2024-10-05  2414.67  2428.69  2389.83  2414.54  106665.69595  2.573030e+08
 ```
 
-### Function Reference
-
-#### `def get_ohlc(broker: SupportedBroker, symbol: str, interval: Interval, start: Timestamp, end: Timestamp) -> pd.DataFrame`
-
-Retrieves OHLC data for the specified broker, symbol, interval, and date range.
-
-- **Parameters**:
-  - `broker`: The broker to fetch data from (e.g., `binance_spot`, `bybit_spot`).
-  - `symbol`: The trading pair symbol (e.g., `BTCUSDT`).
-  - `interval`: The interval for OHLC data (`1m`, `1h`, `1d`, etc.).
-  - `start`: Start time of the data (supports various formats).
-  - `end`: End time of the data.
-
-- **Returns**:
-  - `pandas.DataFrame`: A DataFrame containing OHLC data.
-
----
-
-
-### Usage
-
 #### Plot Close 1d data with matplotlib: BTCUSDT Futures on Binance for the last year
 ```python
 from datetime import datetime, timedelta
@@ -128,7 +125,7 @@ df = get_ohlc("binance_futures", "BTCUSDT", "1d", now - timedelta(days=365), now
 df["Close"].plot()
 plt.show()
 ```
-![binance_btcusdt_futures.png](.github/images/binance_btcusdt_futures.png)
+![binance_btcusdt_futures.png](https://raw.githubusercontent.com/eslazarev/pricehub/refs/heads/main/.github//images/binance_btcusdt_futures.png)
 
 
 #### Plot OHLC 1w data with plotly: BTCUSDT Spot on Binance for the last five years
@@ -145,7 +142,7 @@ fig = go.Figure(data=go.Candlestick(x=df.index, open=df['Open'], high=df['High']
 fig.update_layout()
 fig.show()
 ```
-![binance_btc_usdt_spot_1w_5_years.png](.github/images/binance_btc_usdt_spot_1w_5_years.png)
+![binance_btc_usdt_spot_1w_5_years.png](https://raw.githubusercontent.com/eslazarev/pricehub/refs/heads/main/.github/images/binance_btc_usdt_spot_1w_5_years.png)
 
 
 

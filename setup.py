@@ -6,7 +6,7 @@ package_name = "pricehub"
 
 setup(
     name=package_name,
-    version="0.0.3",
+    version="0.0.3.1",
     packages=find_packages(),
     author="Evgenii Lazarev",
     author_email="elazarev@gmail.com",
@@ -29,4 +29,6 @@ setup(
         "arrow>=1.0.0",
         "requests",
     ],
+    python_requires=">=3.8",
+    keywords="OHLC prices binance bybit trading OHLCV algotrading cryptocurrency crypto futures spot broker",
 )
