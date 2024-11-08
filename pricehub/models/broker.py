@@ -7,6 +7,7 @@ from pricehub.brokers.broker_binance_spot import BrokerBinanceSpot
 from pricehub.brokers.broker_bybit_inverse import BrokerBybitInverse
 from pricehub.brokers.broker_bybit_linear import BrokerBybitLinear
 from pricehub.brokers.broker_bybit_spot import BrokerBybitSpot
+from pricehub.brokers.broker_coinbase_spot import BrokerCoinbaseSpot
 
 
 class Broker(Enum):
@@ -19,6 +20,7 @@ class Broker(Enum):
     BYBIT_SPOT = "bybit_spot"
     BYBIT_LINEAR = "bybit_linear"
     BYBIT_INVERSE = "bybit_inverse"
+    COINBASE_SPOT = "coinbase_spot"
 
     def get_broker_class(self) -> "BrokerABC":  # type: ignore[name-defined]
         """
@@ -31,5 +33,6 @@ class Broker(Enum):
             Broker.BYBIT_SPOT: BrokerBybitSpot,
             Broker.BYBIT_LINEAR: BrokerBybitLinear,
             Broker.BYBIT_INVERSE: BrokerBybitInverse,
+            Broker.COINBASE_SPOT: BrokerCoinbaseSpot,
         }
         return broker_classes[self]
