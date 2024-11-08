@@ -6,7 +6,7 @@ package_name = "pricehub"
 
 setup(
     name=package_name,
-    version="0.0.2",
+    version="0.0.3",
     packages=find_packages(),
     author="Evgenii Lazarev",
     author_email="elazarev@gmail.com",
@@ -14,9 +14,15 @@ setup(
         "GitHub": "https://github.com/eslazarev/pricehub",
         "LinkedIn": "https://www.linkedin.com/in/elazarev",
     },
-    description="Open-High-Low-Close (OHLC) prices data from different brokers",
+    description="Open-High-Low-Close (OHLC) prices data from brokers: binance (spot, futures), bybit (spot, linear, inverse)",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+    ],
+    url="https://github.com/eslazarev/pricehub",
     install_requires=[
         "pandas",
         "pydantic>=2.0.1",

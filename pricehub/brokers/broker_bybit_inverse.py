@@ -2,10 +2,10 @@
 from pricehub.brokers.broker_bybit_abc import BrokerBybitABC
 
 
-class BrokerBybitSpot(BrokerBybitABC):
+class BrokerBybitInverse(BrokerBybitABC):
     """
-    Bybit Spot broker implementation
+    Bybit Inverse broker implementation
     https://bybit-exchange.github.io/docs/v5/market/kline
     """
 
-    category = "spot"
+    category = "inverse"

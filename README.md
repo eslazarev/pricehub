@@ -10,6 +10,12 @@ It supports multiple markets, including spot and futures, and provides flexible 
 
 Effective trading begins with thorough data analysis, visualization, and backtesting. This package simplifies access to such data, providing a unified solution for retrieving OHLC information across various broker APIs.
 
+### Supported Brokers
+- Binance Spot
+- Binance Futures
+- Bybit Spot
+- Bybit Linear (Futures)
+- Bybit Inverse
 
 ## Key Features
 
@@ -20,12 +26,9 @@ Effective trading begins with thorough data analysis, visualization, and backtes
 - **Extended Date Ranges**: This package will paginate and collect all data across large date ranges.
 - **All fields from official API**: Retrieve all fields available in the official API (e.g., `Number of trades`, `Taker buy base asset volume`). 
 
-### Supported Brokers
-- Binance Spot
-- Binance Futures
-- Bybit Spot
-
 ### Supported Intervals
+(depends on the broker)
+- **Seconds**: `1s`
 - **Minutes**: `1m`, `3m`, `5m`, `15m`, `30m`
 - **Hours**: `1h`, `2h`, `4h`, `6h`, `12h`
 - **Days**: `1d`, `3d`
@@ -106,6 +109,87 @@ Retrieves OHLC data for the specified broker, symbol, interval, and date range.
   - `end`: End time of the data.
 
 - **Returns**:
-  - `pandas.DataFrame`: A DataFrame containing OHLC data with `Open time` as the index.
+  - `pandas.DataFrame`: A DataFrame containing OHLC data.
 
 ---
+
+
+### Usage
+
+#### Plot Close 1d data with matplotlib: BTCUSDT Futures on Binance for the last year
+```python
+from datetime import datetime, timedelta
+
+import matplotlib.pyplot as plt
+from pricehub import get_ohlc
+
+now = datetime.now()
+df = get_ohlc("binance_futures", "BTCUSDT", "1d", now - timedelta(days=365), now)
+df["Close"].plot()
+plt.show()
+```
+![binance_btcusdt_futures.png](.github/images/binance_btcusdt_futures.png)
+
+
+#### Plot OHLC 1w data with plotly: BTCUSDT Spot on Binance for the last five years
+```python
+from datetime import datetime, timedelta
+import plotly.graph_objects as go
+from pricehub import get_ohlc
+
+now = datetime.now()
+df = get_ohlc("binance_spot", "BTCUSDT", "1w", now - timedelta(days=365 * 5), now)
+
+fig = go.Figure(data=go.Candlestick(x=df.index, open=df['Open'], high=df['High'], low=df['Low'], close=df['Close']))
+
+fig.update_layout()
+fig.show()
+```
+![binance_btc_usdt_spot_1w_5_years.png](.github/images/binance_btc_usdt_spot_1w_5_years.png)
+
+
+
+#### Create custom intervals 10m for SOLUSDT Spot on Bybit for the last month
+```python
+from datetime import datetime, timedelta
+from pricehub import get_ohlc
+now = datetime.now()
+df = get_ohlc("bybit_spot", "SOLUSDT", "5m", now - timedelta(days=31), now)
+df_10m = (
+    df.resample(
+        "10min",
+    ).agg(
+        {
+            "Open": "first",
+            "High": "max",
+            "Low": "min",
+            "Close": "last",
+            "Volume": "sum",
+        }
+    )
+)
+print(df.head())
+print(df_10m.head())
+```
+
+
+```python
+#5m
+                      Open    High     Low   Close    Volume      Turnover
+Open time                                                                  
+2024-11-07 17:40:00  194.13  194.66  194.03  194.54  3391.378  6.592576e+05
+2024-11-07 17:45:00  194.54  195.48  194.44  195.41  6075.927  1.184312e+06
+2024-11-07 17:50:00  195.41  195.71  195.06  195.69  4073.276  7.961276e+05
+2024-11-07 17:55:00  195.69  196.16  195.59  195.93  8774.224  1.719060e+06
+2024-11-07 18:00:00  195.93  196.83  195.73  196.34  5075.807  9.973238e+05
+
+#10m
+                       Open    High     Low   Close     Volume
+Open time                                                     
+2024-11-07 17:40:00  194.13  195.48  194.03  195.41   9467.305
+2024-11-07 17:50:00  195.41  196.16  195.06  195.93  12847.500
+2024-11-07 18:00:00  195.93  196.83  194.66  195.29  12506.671
+2024-11-07 18:10:00  195.29  196.13  194.70  195.58  20437.030
+2024-11-07 18:20:00  195.58  196.00  194.84  195.81  16388.688
+```
+
