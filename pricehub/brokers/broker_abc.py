@@ -9,7 +9,7 @@ class BrokerABC(ABC):
     Abstract base class for brokers
     """
 
-    interval_map = {}
+    interval_map: dict = {}
 
     @abstractmethod
     def get_ohlc(self, get_ohlc_params: "GetOhlcParams") -> pd.DataFrame:  # type: ignore[name-defined]
@@ -20,7 +20,7 @@ class BrokerABC(ABC):
         """
         raise NotImplementedError
 
-    def validate_interval(self, get_ohlc_params: "GetOhlcParams") -> None:
+    def validate_interval(self, get_ohlc_params: "GetOhlcParams") -> None:  # type: ignore[name-defined]
         """
         Validate the interval for the given broker.
         :param get_ohlc_params:

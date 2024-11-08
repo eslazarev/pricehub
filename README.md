@@ -149,7 +149,7 @@ fig.show()
 
 
 
-#### Create custom intervals 10m f 
+#### Create custom intervals 10m for SOLUSDT Spot on Bybit for the last month
 ```python
 from datetime import datetime, timedelta
 from pricehub import get_ohlc
