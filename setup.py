@@ -14,7 +14,7 @@ setup(
         "GitHub": "https://github.com/eslazarev/pricehub",
         "LinkedIn": "https://www.linkedin.com/in/elazarev",
     },
-    description="Open-High-Low-Close (OHLC) prices data from brokers: binance (spot, futures), bybit (spot, )",
+    description="Open-High-Low-Close (OHLC) prices data from brokers: binance (spot, futures), bybit (spot, linear, inverse)",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     classifiers=[
