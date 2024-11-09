@@ -6,7 +6,7 @@ package_name = "pricehub"
 
 setup(
     name=package_name,
-    version="0.0.3.3",
+    version="0.0.3.4",
     packages=find_packages(),
     author="Evgenii Lazarev",
     author_email="elazarev@gmail.com",
@@ -14,7 +14,8 @@ setup(
         "GitHub": "https://github.com/eslazarev",
         "LinkedIn": "https://www.linkedin.com/in/elazarev",
     },
-    description="Open-High-Low-Close (OHLC) prices data from brokers: binance (spot, futures), bybit (spot, linear, inverse)",
+    description="Open-High-Low-Close (OHLC) prices data from brokers: binance (spot, futures), "
+                "bybit (spot, linear, inverse), coinbase (spot)",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     classifiers=[
@@ -48,5 +49,6 @@ setup(
         "requests",
     ],
     python_requires=">=3.8",
-    keywords="OHLC prices binance bybit trading OHLCV algotrading cryptocurrency crypto futures spot broker",
+    keywords="OHLC OHLCV prices binance bybit coinbase trading  finance quant algotrading cryptocurrency "
+             "crypto futures spot broker exchange market quantitative historical candlestick back-testing dataframe",
 )

@@ -1,16 +1,22 @@
-# Updated get_ohlc method in BrokerCoinbase class
+""" This module contains the implementation of the BrokerCoinbaseSpot class. """
 
 import time
 
 import requests
+import pandas as pd
 
 from pricehub.brokers.broker_abc import BrokerABC
-import pandas as pd
 
 from pricehub.config import TIMEOUT_SEC
 
 
 class BrokerCoinbaseSpot(BrokerABC):
+    """
+    Coinbase Spot Broker
+    https://docs.cdp.coinbase.com/exchange/reference/exchangerestapi_getproductcandles
+
+    """
+
     base_url = "https://api.exchange.coinbase.com/products/{symbol}/candles"
 
     interval_map = {
@@ -21,8 +27,9 @@ class BrokerCoinbaseSpot(BrokerABC):
         "6h": 21600,
         "1d": 86400,
     }
+    maximum_data_points = 300
 
-    def get_ohlc(self, get_ohlc_params: "GetOhlcParams") -> pd.DataFrame:
+    def get_ohlc(self, get_ohlc_params: "GetOhlcParams") -> pd.DataFrame:  # type: ignore[name-defined]
         self.validate_interval(get_ohlc_params)
 
         start_time = int(get_ohlc_params.start.timestamp())
@@ -31,28 +38,25 @@ class BrokerCoinbaseSpot(BrokerABC):
 
         all_data = []
 
-        # Fetch data in chunks within the 300-row limit
         while start_time < end_time:
-            chunk_end_time = min(start_time + (300 * granularity), end_time)
+            chunk_end_time = min(start_time + (self.maximum_data_points * granularity), end_time)
 
             params = {
-                "start": time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime(start_time)),
-                "end": time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime(chunk_end_time)),
+                "start": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(start_time)),
+                "end": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(chunk_end_time)),
                 "granularity": granularity,
             }
 
             url = self.base_url.format(symbol=get_ohlc_params.symbol)
             response = requests.get(url, params=params, timeout=TIMEOUT_SEC)
-            # response.raise_for_status()
             data = response.json()
 
             if not data:
                 break
 
             all_data.extend(data)
-            start_time = data[0][0] + granularity  # Continue from the next timestamp after the last fetched
+            start_time = data[0][0] + granularity
 
-            # Check if we reached end
             if chunk_end_time >= end_time:
                 break
 
@@ -61,10 +65,10 @@ class BrokerCoinbaseSpot(BrokerABC):
 
         df = pd.DataFrame(
             all_data,
-            columns=["time", "low", "high", "open", "close", "volume"],
+            columns=["Open time", "Low", "High", "Open", "Close", "Volume"],
         )
-        df["time"] = pd.to_datetime(df["time"], unit="s")
-        df.set_index("time", inplace=True)
+        df["Open time"] = pd.to_datetime(df["Open time"], unit="s")
+        df.set_index("Open time", inplace=True)
         df.sort_index(inplace=True)
 
         return df

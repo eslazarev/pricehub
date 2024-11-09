@@ -2,7 +2,8 @@
 ![Pylint](https://raw.githubusercontent.com/eslazarev/pricehub/refs/heads/main/.github/badges/pylint.svg)
 ![Black](https://img.shields.io/badge/code%20style-black-000000.svg)
 ![Python Versions](https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue)
-![License](https://img.shields.io/badge/license-Apache%20License%202.0-gray)
+![License](https://img.shields.io/badge/license-Apache%20License%202.0-blue)
+![PyPI Downloads](https://static.pepy.tech/badge/pricehub)
 
 
 # pricehub
@@ -19,6 +20,7 @@ Effective trading begins with thorough data analysis, visualization, and backtes
 - Bybit Spot
 - Bybit Linear (Futures)
 - Bybit Inverse
+- Coinbase Spot
 
 ## Key Features
 
