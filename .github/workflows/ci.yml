@@ -55,7 +55,7 @@ jobs:
       - name: Build the package
         run: python -m build
 
-      - name: Publish to PyPI Test
+      - name: Publish to PyPI
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         env:
           TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
@@ -65,3 +65,15 @@ jobs:
 
       - name: Clean up build artifacts
         run: rm -rf dist build *.egg-info
+
+      - name: Create GitHub Release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/create-release@v1
+        with:
+          draft: false
+          prerelease: false
+          body: "Automated release from CI"
+          release_name: ''
+          tag_name: ''
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
