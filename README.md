@@ -12,6 +12,21 @@ It supports multiple markets, including spot and futures, and provides flexible 
 
 Effective trading begins with thorough data analysis, visualization, and backtesting. This package simplifies access to such data, providing a unified solution for retrieving OHLC information across various broker APIs.
 
+## Contents
+- [Supported Brokers](#supported-brokers)
+- [Key Features](#key-features)
+- [Supported Intervals](#supported-intervals)
+- [Installation](#installation)
+- [Function Reference](#function-reference)
+- [Example Usage](#example-usage)
+  - [Save data to CSV, Excel, Parquet files](#save-data-to-csv-excel-parquet-files)
+  - [Retrieve OHLC data from Binance Spot for a 6-hour interval](#retrieve-ohlc-data-from-binance-spot-for-a-6-hour-interval)
+  - [Retrieve OHLC data from Bybit Spot for a 1-day interval](#retrieve-ohlc-data-from-bybit-spot-for-a-1-day-interval)
+  - [Plot Close 1d data with matplotlib: BTCUSDT Futures on Binance for the last year](#plot-close-1d-data-with-matplotlib-btcusdt-futures-on-binance-for-the-last-year)
+  - [Plot OHLC 1w data with plotly: BTCUSDT Spot on Binance for the last five years](#plot-ohlc-1w-data-with-plotly-btcusdt-spot-on-binance-for-the-last-five-years)
+  - [Create custom intervals 10m for SOLUSDT Spot on Bybit for the last month](#create-custom-intervals-10m-for-solusdt-spot-on-bybit-for-the-last-month)
+
+
 ### Supported Brokers
 - Binance Spot
 - Binance Futures
@@ -29,7 +44,7 @@ Effective trading begins with thorough data analysis, visualization, and backtes
 - **Extended Date Ranges**: This package will paginate and collect all data across large date ranges.
 - **All fields from official API**: Retrieve all fields available in the official API (e.g., `Number of trades`, `Taker buy base asset volume`). 
 
-### Supported Intervals
+## Supported Intervals
 (depends on the broker)
 - **Seconds**: `1s`
 - **Minutes**: `1m`, `3m`, `5m`, `15m`, `30m`
@@ -46,9 +61,9 @@ Effective trading begins with thorough data analysis, visualization, and backtes
 pip install pricehub
 ```
 
-### Function Reference
+## Function Reference
 
-#### `def get_ohlc(broker: SupportedBroker, symbol: str, interval: Interval, start: Timestamp, end: Timestamp) -> pd.DataFrame`
+### `def get_ohlc(broker: SupportedBroker, symbol: str, interval: Interval, start: Timestamp, end: Timestamp) -> pd.DataFrame`
 
 Retrieves OHLC data for the specified broker, symbol, interval, and date range.
 
@@ -64,11 +79,20 @@ Retrieves OHLC data for the specified broker, symbol, interval, and date range.
 
 ---
 
-## Quick Start
+## Example Usage
 
-### Example Usage
+### Save data to CSV, Excel, Parquet files
+```python
 
-#### Retrieve OHLC data from Binance Spot for a 6-hour interval
+from pricehub import get_ohlc
+df = get_ohlc("binance_spot", "BTCUSDT", "1d", "2024-10-01", "2024-10-05")
+df.to_csv("btcusdt_1d_2024-10-01_2024-10-05.csv") # Save to CSV
+df.to_excel("btcusdt_1d_2024-10-01_2024-10-05.xlsx") # Save to Excel
+df.to_parquet("btcusdt_1d_2024-10-01_2024-10-05.parquet") # Save to Parquet
+```
+
+
+### Retrieve OHLC data from Binance Spot for a 6-hour interval
 ```python
 from pricehub import get_ohlc
 
@@ -92,7 +116,7 @@ Open time
 2024-10-02 00:00:00  60776.7  61858.2  60703.3  61466.7   51046.012 2024-10-02 05:59:59.999        3.133969e+09          668558.0                    27191.919                  1.669187e+09     0.0
 ```
 
-#### Retrieve OHLC data from Bybit Spot for a 1-day interval
+### Retrieve OHLC data from Bybit Spot for a 1-day interval
 ```python
 from pricehub import get_ohlc
 
@@ -116,7 +140,7 @@ Open time
 2024-10-05  2414.67  2428.69  2389.83  2414.54  106665.69595  2.573030e+08
 ```
 
-#### Plot Close 1d data with matplotlib: BTCUSDT Futures on Binance for the last year
+### Plot Close 1d data with matplotlib: BTCUSDT Futures on Binance for the last year
 ```python
 from datetime import datetime, timedelta
 
@@ -131,7 +155,7 @@ plt.show()
 ![binance_btcusdt_futures.png](https://raw.githubusercontent.com/eslazarev/pricehub/refs/heads/main/.github//images/binance_btcusdt_futures.png)
 
 
-#### Plot OHLC 1w data with plotly: BTCUSDT Spot on Binance for the last five years
+### Plot OHLC 1w data with plotly: BTCUSDT Spot on Binance for the last five years
 ```python
 from datetime import datetime, timedelta
 import plotly.graph_objects as go
@@ -149,7 +173,7 @@ fig.show()
 
 
 
-#### Create custom intervals 10m for SOLUSDT Spot on Bybit for the last month
+### Create custom intervals 10m for SOLUSDT Spot on Bybit for the last month
 ```python
 from datetime import datetime, timedelta
 from pricehub import get_ohlc
