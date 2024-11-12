@@ -6,7 +6,7 @@
 ![PyPI Downloads](https://static.pepy.tech/badge/pricehub)
 
 
-# **pricehub** is a Python package for retrieving OHLC (Open-High-Low-Close) data from brokers' APIs, including Binance, Bybit, and Coinbase, through a unified interface.
+# **PriceHub**: Unified Python Package for Collecting OHLC Prices from Binance, Bybit, and Coinbase APIs into a DataFrame
 
 It supports multiple markets, including spot and futures, and provides flexible timestamp inputs and a wide range of intervals.
 

@@ -17,7 +17,8 @@ class BrokerCoinbaseSpot(BrokerABC):
 
     """
 
-    base_url = "https://api.exchange.coinbase.com/products/{symbol}/candles"
+    api_url = "https://api.exchange.coinbase.com/products/{symbol}/candles"
+    columns = ["Open time", "Low", "High", "Open", "Close", "Volume"]
 
     interval_map = {
         "1m": 60,
@@ -29,14 +30,12 @@ class BrokerCoinbaseSpot(BrokerABC):
     }
     maximum_data_points = 300
 
-    def get_ohlc(self, get_ohlc_params: "GetOhlcParams") -> pd.DataFrame:  # type: ignore[name-defined]
-        self.validate_interval(get_ohlc_params)
-
+    def fetch_data(self, get_ohlc_params: "GetOhlcParams") -> list:  # type: ignore[name-defined]
         start_time = int(get_ohlc_params.start.timestamp())
         end_time = int(get_ohlc_params.end.timestamp())
         granularity = self.interval_map[get_ohlc_params.interval]
 
-        all_data = []
+        aggregated_data = []
 
         while start_time < end_time:
             chunk_end_time = min(start_time + (self.maximum_data_points * granularity), end_time)
@@ -47,24 +46,24 @@ class BrokerCoinbaseSpot(BrokerABC):
                 "granularity": granularity,
             }
 
-            url = self.base_url.format(symbol=get_ohlc_params.symbol)
+            url = self.api_url.format(symbol=get_ohlc_params.symbol)
             response = requests.get(url, params=params, timeout=TIMEOUT_SEC)
             data = response.json()
 
             if not data:
                 break
 
-            all_data.extend(data)
+            aggregated_data.extend(data)
             start_time = data[0][0] + granularity
 
             if chunk_end_time >= end_time:
                 break
 
-        if not all_data:
-            return pd.DataFrame()
+        return aggregated_data
 
+    def convert_to_dataframe(self, aggregated_data: list) -> pd.DataFrame:
         df = pd.DataFrame(
-            all_data,
+            aggregated_data,
             columns=["Open time", "Low", "High", "Open", "Close", "Volume"],
         )
         df["Open time"] = pd.to_datetime(df["Open time"], unit="s")

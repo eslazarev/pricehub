@@ -3,9 +3,6 @@ import pandas as pd
 
 from pricehub.models import SupportedBroker, Timestamp, GetOhlcParams, Interval
 
-pd.set_option("display.max_columns", None)
-pd.set_option("display.width", None)
-
 
 def get_ohlc(
     broker: SupportedBroker, symbol: str, interval: Interval, start: Timestamp, end: Timestamp
