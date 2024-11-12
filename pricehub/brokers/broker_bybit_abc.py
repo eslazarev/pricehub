@@ -11,7 +11,7 @@ class BrokerBybitABC(BrokerABC):
     https://bybit-exchange.github.io/docs/v5/market/kline
     """
 
-    base_url = "https://api.bybit.com/v5/market/kline"
+    api_url = "https://api.bybit.com/v5/market/kline"
 
     interval_map = {
         "1m": "1",
@@ -30,10 +30,17 @@ class BrokerBybitABC(BrokerABC):
     }
 
     category = ""
+    columns = [
+        "Open time",
+        "Open",
+        "High",
+        "Low",
+        "Close",
+        "Volume",
+        "Turnover",
+    ]
 
-    def get_ohlc(self, get_ohlc_params: "GetOhlcParams") -> pd.DataFrame:  # type: ignore[name-defined]
-        self.validate_interval(get_ohlc_params)
-
+    def fetch_data(self, get_ohlc_params: "GetOhlcParams") -> list:  # type: ignore[name-defined]
         start_time = int(get_ohlc_params.start.timestamp() * 1000)
         end_time = int(get_ohlc_params.end.timestamp() * 1000)
 
@@ -46,10 +53,10 @@ class BrokerBybitABC(BrokerABC):
             "limit": 200,
         }
 
-        all_data = []
+        aggregated_data = []
 
         while True:
-            response = requests.get(self.base_url, params=params, timeout=TIMEOUT_SEC)
+            response = requests.get(self.api_url, params=params, timeout=TIMEOUT_SEC)
             data = response.json()
 
             if data["retCode"] != 0:
@@ -60,7 +67,7 @@ class BrokerBybitABC(BrokerABC):
                 break
 
             batch_data = result["list"][::-1]
-            all_data.extend(batch_data)
+            aggregated_data.extend(batch_data)
 
             if len(result["list"]) < params["limit"]:
                 break
@@ -71,13 +78,11 @@ class BrokerBybitABC(BrokerABC):
             if params["end"] < start_time:
                 break
 
-        if not all_data:
-            return pd.DataFrame()
+        return aggregated_data
 
-        all_data = all_data[::-1]
-
+    def convert_to_dataframe(self, aggregated_data: list) -> pd.DataFrame:
         df = pd.DataFrame(
-            all_data,
+            aggregated_data,
             columns=["Open time", "Open", "High", "Low", "Close", "Volume", "Turnover"],
         )
         df["Open time"] = pd.to_datetime(df["Open time"].astype(int), unit="ms")

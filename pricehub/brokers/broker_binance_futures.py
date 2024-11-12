@@ -1,6 +1,6 @@
 """ Binance Futures Broker Class """
 
-from pricehub.brokers.broker_binance import BrokerBinanceABC
+from pricehub.brokers.broker_binance_abc import BrokerBinanceABC
 
 
 class BrokerBinanceFutures(BrokerBinanceABC):
@@ -8,7 +8,7 @@ class BrokerBinanceFutures(BrokerBinanceABC):
     Binance Futures Broker Class
     """
 
-    base_url = "https://fapi.binance.com/fapi/v1/klines"
+    api_url = "https://fapi.binance.com/fapi/v1/klines"
 
     interval_map = {
         "1m": "1m",
