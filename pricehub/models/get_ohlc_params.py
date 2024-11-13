@@ -3,7 +3,7 @@
 from typing import Any
 
 import arrow
-from pydantic import BaseModel, field_validator, model_validator
+from pydantic import BaseModel, field_validator, model_validator, ConfigDict
 
 from pricehub.models import Interval
 
@@ -19,12 +19,7 @@ class GetOhlcParams(BaseModel):
     start: arrow.Arrow
     end: arrow.Arrow
 
-    class Config:
-        """
-        Pydantic configuration.
-        """
-
-        arbitrary_types_allowed = True
+    model_config = ConfigDict(arbitrary_types_allowed=True)
 
     @field_validator("start", "end", mode="before")
     def convert_to_arrow(cls, value: Any) -> arrow.Arrow:

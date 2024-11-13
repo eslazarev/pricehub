@@ -1,5 +1,6 @@
 ![CI](https://github.com/eslazarev/pricehub/workflows/CI/badge.svg)
 ![Pylint](https://raw.githubusercontent.com/eslazarev/pricehub/refs/heads/main/.github/badges/pylint.svg)
+![Coverage](https://raw.githubusercontent.com/eslazarev/pricehub/refs/heads/main/.github/badges/coverage.svg)
 ![Black](https://img.shields.io/badge/code%20style-black-000000.svg)
 ![Python Versions](https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue)
 ![License](https://img.shields.io/badge/license-Apache%20License%202.0-blue)
@@ -88,7 +89,7 @@ from pricehub import get_ohlc
 df = get_ohlc("binance_spot", "BTCUSDT", "1d", "2024-10-01", "2024-10-05")
 df.to_csv("btcusdt_1d_2024-10-01_2024-10-05.csv") # Save to CSV
 df.to_excel("btcusdt_1d_2024-10-01_2024-10-05.xlsx") # Save to Excel
-df.to_parquet("btcusdt_1d_2024-10-01_2024-10-05.parquet") # Save to Parquet
+df.to_parquet("btcusdt_1d_2024-10-01_2024-10-05.parquet") # Save to Parquet, requires 'pyarrow', 'fastparquet'
 ```
 
 
