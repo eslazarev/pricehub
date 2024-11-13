@@ -39,7 +39,7 @@ jobs:
       - name: Run tests with coverage and generate badge
         run: |
           export PYTHONPATH=$(pwd)
-          pytest --cov=src --cov-report=term --cov-report=json:coverage.json
+          pytest --cov=pricehub --cov-report=term --cov-report=json:coverage.json
           coverage=$(jq '.totals.percent_covered | round' coverage.json)
           echo "Coverage: ${coverage}%"
           mkdir -p .github/badges
