@@ -40,6 +40,8 @@ class BrokerBybitABC(BrokerABC):
         "Turnover",
     ]
 
+    maximum_data_points = 200
+
     def fetch_data(self, get_ohlc_params: "GetOhlcParams") -> list:  # type: ignore[name-defined]
         start_time = int(get_ohlc_params.start.timestamp() * 1000)
         end_time = int(get_ohlc_params.end.timestamp() * 1000)
@@ -50,7 +52,7 @@ class BrokerBybitABC(BrokerABC):
             "interval": self.interval_map[get_ohlc_params.interval],
             "start": start_time,
             "end": end_time,
-            "limit": 200,
+            "limit": self.maximum_data_points,
         }
 
         aggregated_data = []
@@ -68,9 +70,6 @@ class BrokerBybitABC(BrokerABC):
 
             batch_data = result["list"][::-1]
             aggregated_data.extend(batch_data)
-
-            if len(result["list"]) < params["limit"]:
-                break
 
             earliest_timestamp = int(batch_data[0][0])
             params["end"] = earliest_timestamp - 1

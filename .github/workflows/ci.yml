@@ -36,6 +36,15 @@ jobs:
           mkdir -p .github/badges
           anybadge --value=$score --file=.github/badges/pylint.svg --label=pylint --color=#007ec6 --overwrite
 
+      - name: Run tests with coverage and generate badge
+        run: |
+          export PYTHONPATH=$(pwd)
+          pytest --cov=src --cov-report=term --cov-report=json:coverage.json
+          coverage=$(jq '.totals.percent_covered | round' coverage.json)
+          echo "Coverage: ${coverage}%"
+          mkdir -p .github/badges
+          anybadge --value=$coverage% --file=.github/badges/coverage.svg --label=coverage --color=#007ec6 --overwrite
+
       - name: Upload badge artifact
         uses: actions/upload-artifact@v4
         with:
@@ -73,7 +82,7 @@ jobs:
           draft: false
           prerelease: false
           body: "Automated release from CI"
-          release_name: "0.0.3.8"
-          tag_name: "0.0.3.8"
+          release_name: "0.0.3.9"
+          tag_name: "0.0.3.9"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
