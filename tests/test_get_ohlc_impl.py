@@ -1,27 +1,7 @@
-import pytest
 from unittest.mock import patch
-import pandas as pd
 from pricehub.get_ohlc_impl import get_ohlc, get_ohlc_impl
 from pricehub.models import GetOhlcParams
-
-
-@pytest.fixture
-def ohlc_test_data():
-    return {"broker": "binance_spot", "symbol": "BTCUSDT", "interval": "1h", "start": "2024-10-01", "end": "2024-10-02"}
-
-
-@pytest.fixture
-def mock_df():
-    return pd.DataFrame(
-        {
-            "Open time": pd.to_datetime(["2024-10-01 00:00", "2024-10-01 01:00"]),
-            "Open": [10000, 10100],
-            "High": [10200, 10300],
-            "Low": [9900, 10000],
-            "Close": [10100, 10200],
-            "Volume": [1.5, 2.0],
-        }
-    )
+from tests.fixtures_mock import ohlc_test_data, mock_df
 
 
 @patch("pricehub.get_ohlc_impl.get_ohlc_impl")
