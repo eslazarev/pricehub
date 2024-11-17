@@ -6,26 +6,7 @@ import pandas as pd
 
 
 @pytest.fixture
-def ohlc_test_data():
-    return {"broker": "binance_spot", "symbol": "BTCUSDT", "interval": "1h", "start": "2024-10-01", "end": "2024-10-02"}
-
-
-@pytest.fixture
-def mock_df():
-    return pd.DataFrame(
-        {
-            "Open time": pd.to_datetime(["2024-10-01 00:00", "2024-10-01 01:00"]),
-            "Open": [10000, 10100],
-            "High": [10200, 10300],
-            "Low": [9900, 10000],
-            "Close": [10100, 10200],
-            "Volume": [1.5, 2.0],
-        }
-    )
-
-
-@pytest.fixture
-def mock_binance_spot_api_response():
+def get_mock_binance_api_response():
     return [
         [
             1731196800000,
@@ -59,11 +40,42 @@ def mock_binance_spot_api_response():
 
 
 @pytest.fixture
-def mock_binance_requests_get_with_side_effect(mocker, mock_binance_spot_api_response):
+def get_mock_binance_response_df(get_mock_binance_api_response):
+    return pd.DataFrame(
+        data=get_mock_binance_api_response,
+        columns=[
+            "Open time",
+            "Open",
+            "High",
+            "Low",
+            "Close",
+            "Volume",
+            "Close time",
+            "Quote asset volume",
+            "Number of trades",
+            "Taker buy base asset volume",
+            "Taker buy quote asset volume",
+            "Ignore",
+        ],
+    )
+
+
+@pytest.fixture
+def mock_binance_get_request_single(mocker, get_mock_binance_api_response):
+    mock_requests_get = mocker.patch("pricehub.brokers.broker_binance_abc.requests.get")
+    mock_response = MagicMock()
+    mock_response.json.return_value = get_mock_binance_api_response
+    mock_requests_get.return_value = mock_response
+
+    return mock_requests_get
+
+
+@pytest.fixture
+def mock_binance_get_request_paginated(mocker, get_mock_binance_api_response):
     mock_requests_get = mocker.patch("pricehub.brokers.broker_binance_abc.requests.get")
 
     first_response = MagicMock()
-    first_response.json.return_value = mock_binance_spot_api_response
+    first_response.json.return_value = get_mock_binance_api_response
 
     second_response = MagicMock()
     second_response.json.return_value = []
@@ -73,7 +85,7 @@ def mock_binance_requests_get_with_side_effect(mocker, mock_binance_spot_api_res
 
 
 @pytest.fixture
-def get_broker_binance_spot_params():
+def get_ohlc_binance_spot_params():
     return {
         "broker": "binance_spot",
         "symbol": "BTCUSDT",

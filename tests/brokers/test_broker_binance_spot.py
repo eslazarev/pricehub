@@ -1,14 +1,9 @@
 from pricehub.models.get_ohlc_params import GetOhlcParams
 from pricehub.brokers.broker_binance_spot import BrokerBinanceSpot
 
-from tests.fixtures_mock import (
-    mock_binance_spot_api_response,
-    get_broker_binance_spot_params,
-    mock_binance_requests_get_with_side_effect,
-)
 
 
-def test_fetch_data(
+def test_fetch_data_return(
     mock_binance_requests_get_with_side_effect, mock_binance_spot_api_response, get_broker_binance_spot_params
 ):
     broker = BrokerBinanceSpot()
@@ -16,3 +11,13 @@ def test_fetch_data(
     data = broker.fetch_data(params)
 
     assert data == mock_binance_spot_api_response
+
+
+def test_fetch_data_request_validation(
+    mock_binance_get_request_single, get_mock_binance_api_response, get_ohlc_binance_spot_params
+):
+    broker = BrokerBinanceSpot()
+    params = GetOhlcParams(**get_ohlc_binance_spot_params)
+    broker.fetch_data(params)
+
+    assert mock_binance_get_request_single.call_count == 1
