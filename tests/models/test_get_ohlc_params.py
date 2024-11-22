@@ -6,44 +6,35 @@ from pricehub.models.get_ohlc_params import GetOhlcParams
 from pricehub.models.broker import Broker
 
 
-def test_get_ohlc_params_valid():
-    params = GetOhlcParams(
-        broker=Broker.BINANCE_SPOT, symbol="BTCUSDT", interval="1h", start="2024-10-01", end="2024-10-02"
-    )
+def test_get_ohlc_params_valid(get_ohlc_binance_spot_params):
+    params = GetOhlcParams(**get_ohlc_binance_spot_params)
     assert params.broker == Broker.BINANCE_SPOT
-    assert params.symbol == "BTCUSDT"
-    assert params.interval == "1h"
-    assert params.start == arrow.get("2024-10-01")
-    assert params.end == arrow.get("2024-10-02")
+    assert params.symbol == get_ohlc_binance_spot_params["symbol"]
+    assert params.interval == get_ohlc_binance_spot_params["interval"]
+    assert params.start == arrow.get(get_ohlc_binance_spot_params["start"])
+    assert params.end == arrow.get(get_ohlc_binance_spot_params["end"])
 
 
-def test_get_ohlc_params_invalid_interval():
+def test_get_ohlc_params_invalid_interval(get_ohlc_binance_spot_params):
+    get_ohlc_binance_spot_params["interval"] = "10m"
     with pytest.raises(ValidationError):
-        GetOhlcParams(
-            broker=Broker.BINANCE_SPOT,
-            symbol="BTCUSDT",
-            interval="10m",
-            start="2024-10-01",
-            end="2024-10-02",
-        )
+        GetOhlcParams(**get_ohlc_binance_spot_params)
 
 
-def test_get_ohlc_params_start_after_end():
+def test_get_ohlc_params_start_after_end(get_ohlc_binance_spot_params):
+    get_ohlc_binance_spot_params["start"] = "2024-10-02"
+    get_ohlc_binance_spot_params["end"] = "2024-10-01"
     with pytest.raises(ValidationError):
-        GetOhlcParams(broker=Broker.BINANCE_SPOT, symbol="BTCUSDT", interval="1h", start="2024-10-02", end="2024-10-01")
+        GetOhlcParams(**get_ohlc_binance_spot_params)
 
 
-def test_get_ohlc_params_invalid_date_format():
+def test_get_ohlc_params_invalid_date_format(get_ohlc_binance_spot_params):
+    get_ohlc_binance_spot_params["start"] = "date"
     with pytest.raises(ValidationError):
-        GetOhlcParams(broker=Broker.BINANCE_SPOT, symbol="BTCUSDT", interval="1h", start="date", end="2024-10-02")
+        GetOhlcParams(**get_ohlc_binance_spot_params)
 
 
-def test_get_ohlc_params_invalid_broker():
+def test_get_ohlc_params_invalid_broker(get_ohlc_binance_spot_params):
+    get_ohlc_binance_spot_params["broker"] = "invalid"
     with pytest.raises(ValidationError):
-        GetOhlcParams(
-            broker="binance",
-            symbol="BTCUSDT",
-            interval="1h",
-            start="2024-10-01",
-            end="2024-10-02",
-        )
+        GetOhlcParams(**get_ohlc_binance_spot_params)
