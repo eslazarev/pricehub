@@ -41,7 +41,7 @@ def get_mock_binance_api_response():
 
 @pytest.fixture
 def get_mock_binance_response_df(get_mock_binance_api_response):
-    return pd.DataFrame(
+    df = pd.DataFrame(
         data=get_mock_binance_api_response,
         columns=[
             "Open time",
@@ -58,6 +58,11 @@ def get_mock_binance_response_df(get_mock_binance_api_response):
             "Ignore",
         ],
     )
+    df = df.astype(float)
+    df["Open time"] = pd.to_datetime(df["Open time"], unit="ms")
+    df["Close time"] = pd.to_datetime(df["Close time"], unit="ms")
+    df.set_index("Open time", inplace=True)
+    return df
 
 
 @pytest.fixture

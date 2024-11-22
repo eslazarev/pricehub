@@ -34,4 +34,3 @@ def get_ohlc_impl(get_ohlc_params: GetOhlcParams) -> pd.DataFrame:
     broker_class = get_ohlc_params.broker.get_broker_class()
     broker_instance = broker_class()
     return broker_instance.get_ohlc(get_ohlc_params)
-
