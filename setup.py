@@ -6,7 +6,7 @@ package_name = "pricehub"
 
 setup(
     name=package_name,
-    version="0.0.3.12",
+    version="0.0.3.13",
     packages=find_packages(),
     author="Evgenii Lazarev",
     author_email="elazarev@gmail.com",

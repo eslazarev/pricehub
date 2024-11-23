@@ -98,3 +98,42 @@ def get_ohlc_binance_spot_params():
         "start": "2024.11.10",
         "end": "2024.11.11",
     }
+
+
+@pytest.fixture
+def get_mock_bybit_api_response():
+    return {
+        "retCode": 0,
+        "retMsg": "OK",
+        "result": {
+            "category": "spot",
+            "symbol": "BTCUSDT",
+            "list": [
+                ["1731283200000", "80355.85", "89666", "80210.39", "88653.57", "36428.853454", "3051924574.30417488"],
+                ["1731196800000", "76670.84", "81518", "76488.71", "80355.85", "28648.21327", "2266259905.05002479"],
+            ],
+        },
+        "retExtInfo": {},
+        "time": 1732370687228,
+    }
+
+
+@pytest.fixture
+def get_ohlc_bybit_spot_params():
+    return {
+        "broker": "bybit_spot",
+        "symbol": "BTCUSDT",
+        "interval": "1d",
+        "start": "2024.11.10",
+        "end": "2024.11.11",
+    }
+
+
+@pytest.fixture
+def get_mock_bybit_get_request_single(mocker, get_mock_bybit_api_response):
+    mock_requests_get = mocker.patch("pricehub.brokers.broker_bybit_abc.requests.get")
+    mock_response = MagicMock()
+    mock_response.json.return_value = get_mock_bybit_api_response
+    mock_requests_get.return_value = mock_response
+
+    return mock_requests_get
