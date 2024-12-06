@@ -40,29 +40,43 @@ def get_mock_binance_api_response():
 
 
 @pytest.fixture
-def get_mock_binance_response_df(get_mock_binance_api_response):
+def get_mock_binance_api_response_partial(get_mock_binance_api_response):
+    return [get_mock_binance_api_response[0]]
+
+
+@pytest.fixture
+def get_mock_binance_columns():
+    return [
+        "Open time",
+        "Open",
+        "High",
+        "Low",
+        "Close",
+        "Volume",
+        "Close time",
+        "Quote asset volume",
+        "Number of trades",
+        "Taker buy base asset volume",
+        "Taker buy quote asset volume",
+        "Ignore",
+    ]
+
+
+def get_mock_binance_response_df_abc(columns, binance_api_response):
     df = pd.DataFrame(
-        data=get_mock_binance_api_response,
-        columns=[
-            "Open time",
-            "Open",
-            "High",
-            "Low",
-            "Close",
-            "Volume",
-            "Close time",
-            "Quote asset volume",
-            "Number of trades",
-            "Taker buy base asset volume",
-            "Taker buy quote asset volume",
-            "Ignore",
-        ],
+        data=binance_api_response,
+        columns=columns,
     )
     df = df.astype(float)
     df["Open time"] = pd.to_datetime(df["Open time"], unit="ms")
     df["Close time"] = pd.to_datetime(df["Close time"], unit="ms")
     df.set_index("Open time", inplace=True)
     return df
+
+
+@pytest.fixture
+def get_mock_binance_response_df(get_mock_binance_columns, get_mock_binance_api_response):
+    return get_mock_binance_response_df_abc(get_mock_binance_columns, get_mock_binance_api_response)
 
 
 @pytest.fixture

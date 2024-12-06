@@ -75,18 +75,23 @@ def test_fetch_data_request_validation_with_pagination(
 
 
 @pytest.mark.parametrize(
-    "broker_class, mock_binance_get_request",
+    "broker_class, mock_binance_get_request, binance_api_response",
     [
-        (BrokerBinanceSpot, "mock_binance_get_request_paginated"),
-        (BrokerBinanceFutures, "mock_binance_get_request_paginated_no_data"),
+        (BrokerBinanceSpot, "mock_binance_get_request_paginated", "get_mock_binance_api_response"),
+        (BrokerBinanceSpot, "mock_binance_get_request_paginated_no_data", "get_mock_binance_api_response_partial"),
+        (BrokerBinanceFutures, "mock_binance_get_request_paginated", "get_mock_binance_api_response"),
+        (BrokerBinanceFutures, "mock_binance_get_request_paginated_no_data", "get_mock_binance_api_response_partial"),
     ],
 )
 def test_fetch_data_request_validation_with_pagination(
-    broker_class, mock_binance_get_request, request, get_ohlc_binance_spot_params
+    broker_class, mock_binance_get_request, binance_api_response, request, get_ohlc_binance_spot_params
 ):
     mock_request = request.getfixturevalue(mock_binance_get_request)
+    api_response = request.getfixturevalue(binance_api_response)
     params = GetOhlcParams(**get_ohlc_binance_spot_params)
+
     broker = broker_class()
-    broker.fetch_data(params)
+    data = broker.fetch_data(params)
 
     assert mock_request.call_count == 2
+    assert data == api_response
