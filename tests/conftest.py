@@ -80,7 +80,21 @@ def mock_binance_get_request_paginated(mocker, get_mock_binance_api_response):
     mock_requests_get = mocker.patch("pricehub.brokers.broker_binance_abc.requests.get")
 
     first_response = MagicMock()
-    first_response.json.return_value = get_mock_binance_api_response
+    first_response.json.return_value = [get_mock_binance_api_response[0]]
+
+    second_response = MagicMock()
+    second_response.json.return_value = [get_mock_binance_api_response[1]]
+
+    mock_requests_get.side_effect = [first_response, second_response]
+    return mock_requests_get
+
+
+@pytest.fixture
+def mock_binance_get_request_paginated_no_data(mocker, get_mock_binance_api_response):
+    mock_requests_get = mocker.patch("pricehub.brokers.broker_binance_abc.requests.get")
+
+    first_response = MagicMock()
+    first_response.json.return_value = [get_mock_binance_api_response[0]]
 
     second_response = MagicMock()
     second_response.json.return_value = []

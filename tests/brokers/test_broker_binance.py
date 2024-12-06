@@ -55,3 +55,38 @@ def test_convert_to_dataframe(broker_class, get_mock_binance_response_df, get_mo
     df = broker.convert_to_dataframe(get_mock_binance_api_response)
 
     assert df.equals(get_mock_binance_response_df)
+
+
+@pytest.mark.parametrize(
+    "broker_class",
+    [
+        BrokerBinanceSpot,
+        BrokerBinanceFutures,
+    ],
+)
+def test_fetch_data_request_validation_with_pagination(
+    broker_class, mock_binance_get_request_paginated, get_mock_binance_api_response, get_ohlc_binance_spot_params
+):
+    params = GetOhlcParams(**get_ohlc_binance_spot_params)
+    broker = broker_class()
+    broker.fetch_data(params)
+
+    assert mock_binance_get_request_paginated.call_count == 2
+
+
+@pytest.mark.parametrize(
+    "broker_class, mock_binance_get_request",
+    [
+        (BrokerBinanceSpot, "mock_binance_get_request_paginated"),
+        (BrokerBinanceFutures, "mock_binance_get_request_paginated_no_data"),
+    ],
+)
+def test_fetch_data_request_validation_with_pagination(
+    broker_class, mock_binance_get_request, request, get_ohlc_binance_spot_params
+):
+    mock_request = request.getfixturevalue(mock_binance_get_request)
+    params = GetOhlcParams(**get_ohlc_binance_spot_params)
+    broker = broker_class()
+    broker.fetch_data(params)
+
+    assert mock_request.call_count == 2
