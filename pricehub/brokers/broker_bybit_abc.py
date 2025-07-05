@@ -1,4 +1,5 @@
-""" Bybit Spot broker implementation """
+"""Bybit Spot broker implementation"""
+
 import requests
 import pandas as pd
 from pricehub.brokers.broker_abc import BrokerABC

@@ -1,4 +1,5 @@
-""" Binance Broker ABC Class """
+"""Binance Broker ABC Class"""
+
 from abc import ABC
 
 import requests

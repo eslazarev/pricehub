@@ -1,4 +1,4 @@
-""" Abstract base class for brokers """
+"""Abstract base class for brokers"""
 
 from abc import ABC, abstractmethod
 import pandas as pd
