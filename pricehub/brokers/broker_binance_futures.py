@@ -1,4 +1,4 @@
-""" Binance Futures Broker Class """
+"""Binance Futures Broker Class"""
 
 from pricehub.brokers.broker_binance_abc import BrokerBinanceABC
 

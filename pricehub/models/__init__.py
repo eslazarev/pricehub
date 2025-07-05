@@ -1,4 +1,4 @@
-""" This module is used to import all the models in the package. """
+"""This module is used to import all the models in the package."""
 
 from pricehub.models.broker import Broker
 from pricehub.models.types_common import SupportedBroker, Timestamp, Interval

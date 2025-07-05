@@ -1,4 +1,4 @@
-""" GetOhlcParams model. """
+"""GetOhlcParams model."""
 
 from typing import Any
 

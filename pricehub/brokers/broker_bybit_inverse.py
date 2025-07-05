@@ -1,4 +1,5 @@
-""" Bybit Spot broker implementation """
+"""Bybit Spot broker implementation"""
+
 from pricehub.brokers.broker_bybit_abc import BrokerBybitABC
 
 

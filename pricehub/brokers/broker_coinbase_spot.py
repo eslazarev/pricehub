@@ -1,4 +1,4 @@
-""" This module contains the implementation of the BrokerCoinbaseSpot class. """
+"""This module contains the implementation of the BrokerCoinbaseSpot class."""
 
 import time
 

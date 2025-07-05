@@ -82,7 +82,7 @@ jobs:
           draft: false
           prerelease: false
           body: "Automated release from CI"
-          release_name: "0.0.3.13"
-          tag_name: "0.0.3.13"
+          release_name: "0.0.3.14"
+          tag_name: "0.0.3.14"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

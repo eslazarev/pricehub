@@ -1,4 +1,4 @@
-""" Binance Spot Broker """
+"""Binance Spot Broker"""
 
 from pricehub.brokers.broker_binance_abc import BrokerBinanceABC
 

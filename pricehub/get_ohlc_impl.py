@@ -1,4 +1,5 @@
-""" Get OHLC data from a broker """
+"""Get OHLC data from a broker"""
+
 import pandas as pd
 
 from pricehub.models import SupportedBroker, Timestamp, GetOhlcParams, Interval
