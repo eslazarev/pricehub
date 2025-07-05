@@ -35,9 +35,3 @@ def get_ohlc_impl(get_ohlc_params: GetOhlcParams) -> pd.DataFrame:
     broker_class = get_ohlc_params.broker.get_broker_class()
     broker_instance = broker_class()
     return broker_instance.get_ohlc(get_ohlc_params)
-
-
-if __name__ == "__main__":
-    # Example usage
-    df = get_ohlc(broker="okx_spot", symbol="BTC-USDT", interval="1h", start="2024-10-01", end="2024-10-02")
-    print(df)
