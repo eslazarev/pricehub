@@ -45,27 +45,70 @@ jobs:
           mkdir -p .github/badges
           anybadge --value=$coverage% --file=.github/badges/coverage.svg --label=coverage --color=#007ec6 --overwrite
 
+      - name: Bump version
+        id: bump_version
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.actor != 'github-actions[bot]'
+        run: |
+          new_version=$(python - <<'PY'
+          import re
+          from pathlib import Path
+          path = Path("setup.py")
+          text = path.read_text()
+          match = re.search(r'version\\s*=\\s*"([0-9]+)\\.([0-9]+)\\.([0-9]+)"', text)
+          if not match:
+              raise SystemExit("Version not found in setup.py")
+          major, minor, patch = map(int, match.groups())
+          patch += 1
+          new_version = f"{major}.{minor}.{patch}"
+          new_text = re.sub(
+              r'version\\s*=\\s*"[0-9]+\\.[0-9]+\\.[0-9]+"',
+              f'version="{new_version}"',
+              text,
+              count=1,
+          )
+          path.write_text(new_text)
+          print(new_version)
+          PY
+          )
+          echo "version=$new_version" >> $GITHUB_OUTPUT
+          echo "bumped=true" >> $GITHUB_OUTPUT
+
       - name: Upload badge artifact
         uses: actions/upload-artifact@v4
         with:
           name: badges
           path: .github/badges/
 
-      - name: Commit and push badge
+      - name: Commit and push updates
+        id: commit_updates
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
           git add .github/badges/*.svg
-          
-          git commit -m "Update PyLint badge" || echo "No changes to commit"
+          if [[ "${{ steps.bump_version.outputs.bumped }}" == "true" ]]; then
+            git add setup.py
+          fi
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          if [[ "${{ steps.bump_version.outputs.bumped }}" == "true" ]]; then
+            git commit -m "chore: update badges and bump version"
+          else
+            git commit -m "chore: update badges"
+          fi
           git push
+          echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
       - name: Build the package
         run: python -m build
 
       - name: Publish to PyPI
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.bump_version.outputs.bumped == 'true'
         env:
           TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
@@ -76,13 +119,14 @@ jobs:
         run: rm -rf dist build *.egg-info
 
       - name: Create GitHub Release
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.bump_version.outputs.bumped == 'true'
         uses: actions/create-release@v1
         with:
           draft: false
           prerelease: false
           body: "Automated release from CI"
-          release_name: "0.0.3.14"
-          tag_name: "0.0.3.14"
+          release_name: "${{ steps.bump_version.outputs.version }}"
+          tag_name: "${{ steps.bump_version.outputs.version }}"
+          target_commitish: "${{ steps.commit_updates.outputs.sha }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
