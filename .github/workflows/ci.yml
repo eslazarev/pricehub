@@ -54,15 +54,21 @@ jobs:
           from pathlib import Path
           path = Path("setup.py")
           text = path.read_text()
-          match = re.search(r'version\\s*=\\s*"([0-9]+)\\.([0-9]+)\\.([0-9]+)"', text)
+          match = re.search(r'version\\s*=\\s*[\\\"\\\']([^\\\"\\\']+)[\\\"\\\']', text)
           if not match:
               raise SystemExit("Version not found in setup.py")
-          major, minor, patch = map(int, match.groups())
+          current = match.group(1)
+          parts = current.split(".")
+          if len(parts) < 3 or not all(p.isdigit() for p in parts):
+              raise SystemExit(f"Unsupported version format: {current}")
+          if len(parts) > 3:
+              parts = parts[:3]
+          major, minor, patch = map(int, parts)
           patch += 1
           new_version = f"{major}.{minor}.{patch}"
           new_text = re.sub(
-              r'version\\s*=\\s*"[0-9]+\\.[0-9]+\\.[0-9]+"',
-              f'version="{new_version}"',
+              r'(version\\s*=\\s*[\\\"\\\'])([^\\\"\\\']+)([\\\"\\\'])',
+              lambda m: f"{m.group(1)}{new_version}{m.group(3)}",
               text,
               count=1,
           )
