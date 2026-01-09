@@ -32,13 +32,14 @@ class BrokerOkxSpot(BrokerABC):
         granularity = self.interval_map[get_ohlc_params.interval]
 
         aggregated = []
+        cursor_ms = end_ms
 
         while True:
             params = {
                 "instId": get_ohlc_params.symbol,
                 "bar": granularity,
                 "limit": self.maximum_data_points,
-                "after": end_ms,
+                "after": cursor_ms,
             }
             resp = requests.get(self.api_url, params=params, timeout=TIMEOUT_SEC)
             resp.raise_for_status()
@@ -66,7 +67,7 @@ class BrokerOkxSpot(BrokerABC):
             if int(data[-1][0]) <= start_ms:
                 break
 
-            end_ms = int(data[0][0]) * 1000 - 1
+            cursor_ms = int(data[-1][0]) - 1
 
         return aggregated[::-1]
 
