@@ -7,7 +7,7 @@
 ![PyPI Downloads](https://static.pepy.tech/badge/pricehub)
 
 
-# **PriceHub**: Unified Python Package for Collecting OHLC Prices from Binance, Bybit, and Coinbase APIs into a DataFrame
+# **PriceHub**: Unified Python Package for Collecting OHLC Prices from Binance, Bybit, Coinbase, OKX, and Kraken APIs into a DataFrame
 
 It supports multiple markets, including spot and futures, and provides flexible timestamp inputs and a wide range of intervals.
 
@@ -35,6 +35,9 @@ Effective trading begins with thorough data analysis, visualization, and backtes
 - Bybit Linear (Futures)
 - Bybit Inverse
 - Coinbase Spot
+- OKX Spot
+- OKX Futures
+- Kraken Spot
 
 ## Key Features
 
@@ -69,7 +72,7 @@ pip install pricehub
 Retrieves OHLC data for the specified broker, symbol, interval, and date range.
 
 - **Parameters**:
-  - `broker`: The broker to fetch data from (e.g., `binance_spot`, `bybit_spot`).
+  - `broker`: The broker to fetch data from (e.g., `binance_spot`, `bybit_spot`, `okx_futures`, `kraken_spot`).
   - `symbol`: The trading pair symbol (e.g., `BTCUSDT`).
   - `interval`: The interval for OHLC data (`1m`, `1h`, `1d`, etc.).
   - `start`: Start time of the data (supports various formats).
@@ -217,4 +220,3 @@ Open time
 2024-11-07 18:10:00  195.29  196.13  194.70  195.58  20437.030
 2024-11-07 18:20:00  195.58  196.00  194.84  195.81  16388.688
 ```
-
