@@ -8,6 +8,8 @@ from pricehub.brokers.broker_bybit_inverse import BrokerBybitInverse
 from pricehub.brokers.broker_bybit_linear import BrokerBybitLinear
 from pricehub.brokers.broker_bybit_spot import BrokerBybitSpot
 from pricehub.brokers.broker_coinbase_spot import BrokerCoinbaseSpot
+from pricehub.brokers.broker_kucoin_futures import BrokerKucoinFutures
+from pricehub.brokers.broker_kucoin_spot import BrokerKucoinSpot
 from pricehub.brokers.broker_kraken_spot import BrokerKrakenSpot
 from pricehub.brokers.broker_okx_futures import BrokerOkxFutures
 from pricehub.brokers.broker_okx_spot import BrokerOkxSpot
@@ -27,6 +29,8 @@ class Broker(Enum):
     OKX_SPOT = "okx_spot"
     OKX_FUTURES = "okx_futures"
     KRAKEN_SPOT = "kraken_spot"
+    KUCOIN_SPOT = "kucoin_spot"
+    KUCOIN_FUTURES = "kucoin_futures"
 
     def get_broker_class(self) -> "BrokerABC":  # type: ignore[name-defined]
         """
@@ -43,5 +47,7 @@ class Broker(Enum):
             Broker.OKX_SPOT: BrokerOkxSpot,
             Broker.OKX_FUTURES: BrokerOkxFutures,
             Broker.KRAKEN_SPOT: BrokerKrakenSpot,
+            Broker.KUCOIN_SPOT: BrokerKucoinSpot,
+            Broker.KUCOIN_FUTURES: BrokerKucoinFutures,
         }
         return broker_classes[self]
