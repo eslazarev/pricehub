@@ -7,7 +7,7 @@
 ![PyPI Downloads](https://static.pepy.tech/badge/pricehub)
 
 
-# **PriceHub**: Unified Python Package for Collecting OHLC Prices from Binance, Bybit, Coinbase, OKX, and Kraken APIs into a DataFrame
+# **PriceHub**: Unified Python Package for Collecting OHLC Prices from Binance, Bybit, Coinbase, OKX, Kraken, and KuCoin APIs into a DataFrame
 
 It supports multiple markets, including spot and futures, and provides flexible timestamp inputs and a wide range of intervals.
 
@@ -23,6 +23,8 @@ Effective trading begins with thorough data analysis, visualization, and backtes
   - [Save data to CSV, Excel, Parquet files](#save-data-to-csv-excel-parquet-files)
   - [Retrieve OHLC data from Binance Spot for a 6-hour interval](#retrieve-ohlc-data-from-binance-spot-for-a-6-hour-interval)
   - [Retrieve OHLC data from Bybit Spot for a 1-day interval](#retrieve-ohlc-data-from-bybit-spot-for-a-1-day-interval)
+  - [Retrieve OHLC data from KuCoin Spot for a 1-hour interval](#retrieve-ohlc-data-from-kucoin-spot-for-a-1-hour-interval)
+  - [Retrieve OHLC data from KuCoin Futures for a 1-hour interval](#retrieve-ohlc-data-from-kucoin-futures-for-a-1-hour-interval)
   - [Plot Close 1d data with matplotlib: BTCUSDT Futures on Binance for the last year](#plot-close-1d-data-with-matplotlib-btcusdt-futures-on-binance-for-the-last-year)
   - [Plot OHLC 1w data with plotly: BTCUSDT Spot on Binance for the last five years](#plot-ohlc-1w-data-with-plotly-btcusdt-spot-on-binance-for-the-last-five-years)
   - [Create custom intervals 10m for SOLUSDT Spot on Bybit for the last month](#create-custom-intervals-10m-for-solusdt-spot-on-bybit-for-the-last-month)
@@ -38,6 +40,8 @@ Effective trading begins with thorough data analysis, visualization, and backtes
 - OKX Spot
 - OKX Futures
 - Kraken Spot
+- KuCoin Spot
+- KuCoin Futures
 
 ## Key Features
 
@@ -142,6 +146,34 @@ Open time
 2024-10-03  2364.01  2403.50  2309.75  2349.91  242598.38255  5.716546e+08
 2024-10-04  2349.91  2441.82  2339.15  2414.67  178050.43782  4.254225e+08
 2024-10-05  2414.67  2428.69  2389.83  2414.54  106665.69595  2.573030e+08
+```
+
+### Retrieve OHLC data from KuCoin Spot for a 1-hour interval
+```python
+from pricehub import get_ohlc
+
+df = get_ohlc(
+    broker="kucoin_spot",
+    symbol="BTC-USDT",
+    interval="1h",
+    start="2024-10-01",
+    end="2024-10-02"
+)
+print(df)
+```
+
+### Retrieve OHLC data from KuCoin Futures for a 1-hour interval
+```python
+from pricehub import get_ohlc
+
+df = get_ohlc(
+    broker="kucoin_futures",
+    symbol="XBTUSDTM",
+    interval="1h",
+    start="2024-10-01",
+    end="2024-10-02"
+)
+print(df)
 ```
 
 ### Plot Close 1d data with matplotlib: BTCUSDT Futures on Binance for the last year
