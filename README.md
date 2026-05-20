@@ -3,8 +3,9 @@
 ![Coverage](https://raw.githubusercontent.com/eslazarev/pricehub/refs/heads/main/.github/badges/coverage.svg)
 ![Black](https://img.shields.io/badge/code%20style-black-000000.svg)
 ![Python Versions](https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue)
-![License](https://img.shields.io/badge/license-Apache%20License%202.0-blue)
+![License](https://img.shields.io/badge/license-MIT-blue)
 ![PyPI Downloads](https://static.pepy.tech/badge/pricehub)
+[![Documentation](https://img.shields.io/badge/docs-online-blue)](https://eslazarev.github.io/pricehub/)
 
 
 # **PriceHub**: Unified Python Package for Collecting OHLC Prices from Binance, Bybit, Coinbase, OKX, Kraken, and KuCoin APIs into a DataFrame
@@ -12,6 +13,8 @@
 It supports multiple markets, including spot and futures, and provides flexible timestamp inputs and a wide range of intervals.
 
 Effective trading begins with thorough data analysis, visualization, and backtesting. This package simplifies access to such data, providing a unified solution for retrieving OHLC information across various broker APIs.
+
+📚 **Full documentation:** [https://eslazarev.github.io/pricehub/](https://eslazarev.github.io/pricehub/)
 
 ## Contents
 - [Supported Brokers](#supported-brokers)
