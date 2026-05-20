@@ -52,11 +52,11 @@ jobs:
           new_version=$(python - <<'PY'
           import re
           from pathlib import Path
-          path = Path("setup.py")
+          path = Path("pyproject.toml")
           text = path.read_text()
-          match = re.search(r'version\s*=\s*["\']([^"\']+)["\']', text)
+          match = re.search(r'^version\s*=\s*"([^"]+)"', text, flags=re.MULTILINE)
           if not match:
-              raise SystemExit("Version not found in setup.py")
+              raise SystemExit("Version not found in pyproject.toml")
           current = match.group(1)
           parts = current.split(".")
           if len(parts) < 3 or not all(p.isdigit() for p in parts):
@@ -67,10 +67,11 @@ jobs:
           patch += 1
           new_version = f"{major}.{minor}.{patch}"
           new_text = re.sub(
-              r'(version\s*=\s*["\'])([^"\']+)(["\'])',
+              r'^(version\s*=\s*")([^"]+)(")',
               lambda m: f"{m.group(1)}{new_version}{m.group(3)}",
               text,
               count=1,
+              flags=re.MULTILINE,
           )
           path.write_text(new_text)
           print(new_version)
@@ -93,7 +94,7 @@ jobs:
           git config --global user.email 'actions@github.com'
           git add .github/badges/*.svg
           if [[ "${{ steps.bump_version.outputs.bumped }}" == "true" ]]; then
-            git add setup.py
+            git add pyproject.toml
           fi
 
           if git diff --cached --quiet; then

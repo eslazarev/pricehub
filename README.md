@@ -1,4 +1,5 @@
 ![CI](https://github.com/eslazarev/pricehub/workflows/CI/badge.svg)
+[![Providers Health](https://github.com/eslazarev/pricehub/actions/workflows/providers-health.yml/badge.svg)](https://github.com/eslazarev/pricehub/actions/workflows/providers-health.yml)
 ![Pylint](https://raw.githubusercontent.com/eslazarev/pricehub/refs/heads/main/.github/badges/pylint.svg)
 ![Coverage](https://raw.githubusercontent.com/eslazarev/pricehub/refs/heads/main/.github/badges/coverage.svg)
 ![Black](https://img.shields.io/badge/code%20style-black-000000.svg)
@@ -6,6 +7,7 @@
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![PyPI Downloads](https://static.pepy.tech/badge/pricehub)
 [![Documentation](https://img.shields.io/badge/docs-online-blue)](https://eslazarev.github.io/pricehub/)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20304963.svg)](https://doi.org/10.5281/zenodo.20304963)
 
 
 # **PriceHub**: Unified Python Package for Collecting OHLC Prices from Binance, Bybit, Coinbase, OKX, Kraken, KuCoin, and Bitget APIs into a DataFrame
@@ -257,3 +259,23 @@ Open time
 2024-11-07 18:10:00  195.29  196.13  194.70  195.58  20437.030
 2024-11-07 18:20:00  195.58  196.00  194.84  195.81  16388.688
 ```
+
+## Maintenance
+
+PriceHub is actively maintained. Issues and pull requests are typically reviewed within one week.
+
+- **Daily live checks**: A scheduled GitHub Actions workflow ([`providers-health.yml`](.github/workflows/providers-health.yml)) hits every supported exchange API once per day with a small sample request and verifies real data is returned. Current status is reflected in the **Providers Health** badge above.
+
+- **Versioning**: [Semantic Versioning 2.0](https://semver.org/). Breaking changes will only land in major releases.
+- **Python support**: All non-end-of-life Python versions (currently 3.8 through 3.13). End-of-life Python versions are dropped in the next minor release after they reach EOL.
+- **Dependency policy**: Direct dependencies are kept minimal (`pandas`, `pydantic`, `arrow`, `requests`). New dependencies are added only when they enable a feature that cannot be reasonably implemented in-tree.
+- **API stability**: The public surface (`get_ohlc`, broker identifiers, supported intervals) follows SemVer. Returned DataFrame column names mirror upstream exchange APIs and may change if an exchange renames fields — such changes are documented in release notes.
+- **Reporting issues**: See [GitHub Issues](https://github.com/eslazarev/pricehub/issues). For security-sensitive reports, email `elazarev@gmail.com` directly.
+
+## Citation
+
+If you use PriceHub in academic work, please cite it. See [`CITATION.cff`](CITATION.cff) or the [Citation page](https://eslazarev.github.io/pricehub/citation/). The Concept DOI [10.5281/zenodo.20304963](https://doi.org/10.5281/zenodo.20304963) always points to the latest release; version-specific DOIs are listed on the [Zenodo record](https://doi.org/10.5281/zenodo.20304963).
+
+## License
+
+Released under the [MIT License](LICENSE).

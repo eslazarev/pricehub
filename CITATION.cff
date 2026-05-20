@@ -17,6 +17,7 @@ authors:
     orcid: "https://orcid.org/0009-0000-1398-7842"
 repository-code: "https://github.com/eslazarev/pricehub"
 url: "https://eslazarev.github.io/pricehub/"
+doi: 10.5281/zenodo.20304963
 license: MIT
 version: 0.0.7
 date-released: 2026-01-11

@@ -8,28 +8,18 @@ The canonical citation metadata lives in [`CITATION.cff`](https://github.com/esl
 
 ### BibTeX
 
+Replace `X.Y.Z` with the exact PriceHub version you used:
+
 ```bibtex
 @software{lazarev_pricehub,
   author       = {Lazarev, Evgenii},
   title        = {{PriceHub: Unified Python Package for Collecting OHLC
                    Prices from Cryptocurrency Exchange APIs}},
-  url          = {https://github.com/eslazarev/pricehub},
+  version      = {X.Y.Z},
+  doi          = {10.5281/zenodo.20304963},
+  url          = {https://doi.org/10.5281/zenodo.20304963},
   license      = {MIT},
   orcid        = {0009-0000-1398-7842}
-}
-```
-
-Once a DOI is minted via Zenodo, add the `doi` and `version` fields:
-
-```bibtex
-@software{lazarev_pricehub_vX_Y_Z,
-  author       = {Lazarev, Evgenii},
-  title        = {{PriceHub: Unified Python Package for Collecting OHLC
-                   Prices from Cryptocurrency Exchange APIs}},
-  version      = {X.Y.Z},
-  doi          = {10.5281/zenodo.XXXXXXX},
-  url          = {https://doi.org/10.5281/zenodo.XXXXXXX},
-  license      = {MIT}
 }
 ```
 
@@ -45,4 +35,4 @@ The author's ORCID iD is [0009-0000-1398-7842](https://orcid.org/0009-0000-1398-
 
 A suggested phrasing for a methods or data section:
 
-> Historical OHLC data were retrieved via PriceHub (Lazarev, version X.Y.Z, DOI: 10.5281/zenodo.XXXXXXX), a unified Python interface to the public APIs of Binance, Bybit, Coinbase, OKX, Kraken, and KuCoin.
+> Historical OHLC data were retrieved via PriceHub (Lazarev, version X.Y.Z, DOI: 10.5281/zenodo.20304963), a unified Python interface to the public APIs of Binance, Bybit, Coinbase, OKX, Kraken, KuCoin, and Bitget.
