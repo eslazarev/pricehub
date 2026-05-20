@@ -8,7 +8,7 @@
 [![Documentation](https://img.shields.io/badge/docs-online-blue)](https://eslazarev.github.io/pricehub/)
 
 
-# **PriceHub**: Unified Python Package for Collecting OHLC Prices from Binance, Bybit, Coinbase, OKX, Kraken, and KuCoin APIs into a DataFrame
+# **PriceHub**: Unified Python Package for Collecting OHLC Prices from Binance, Bybit, Coinbase, OKX, Kraken, KuCoin, and Bitget APIs into a DataFrame
 
 It supports multiple markets, including spot and futures, and provides flexible timestamp inputs and a wide range of intervals.
 
@@ -45,6 +45,8 @@ Effective trading begins with thorough data analysis, visualization, and backtes
 - Kraken Spot
 - KuCoin Spot
 - KuCoin Futures
+- Bitget Spot
+- Bitget Futures
 
 ## Key Features
 
