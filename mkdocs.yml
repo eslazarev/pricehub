@@ -1,0 +1,82 @@
+site_name: PriceHub
+site_description: Unified Python Package for Collecting OHLC Prices from Cryptocurrency Exchange APIs
+site_url: https://eslazarev.github.io/pricehub/
+site_author: Evgenii Lazarev
+repo_name: eslazarev/pricehub
+repo_url: https://github.com/eslazarev/pricehub
+edit_uri: edit/main/docs/
+copyright: Copyright &copy; 2024-2026 Evgenii Lazarev — MIT License
+
+theme:
+  name: material
+  language: en
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.tracking
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - content.action.edit
+    - toc.follow
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Usage: usage.md
+  - API Reference: api.md
+  - For Researchers: for-researchers.md
+  - Contributing: contributing.md
+  - Citation: citation.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/eslazarev/pricehub
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/pricehub/
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/elazarev

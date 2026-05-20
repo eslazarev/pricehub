@@ -11,6 +11,9 @@ setup(
     author="Evgenii Lazarev",
     author_email="elazarev@gmail.com",
     project_urls={
+        "Documentation": "https://eslazarev.github.io/pricehub/",
+        "Source": "https://github.com/eslazarev/pricehub",
+        "Issues": "https://github.com/eslazarev/pricehub/issues",
         "GitHub": "https://github.com/eslazarev",
         "LinkedIn": "https://www.linkedin.com/in/elazarev",
     },

@@ -1,0 +1,48 @@
+{
+  "title": "PriceHub: Unified Python Package for Collecting OHLC Prices from Cryptocurrency Exchange APIs",
+  "description": "PriceHub is a Python package providing a unified interface for retrieving OHLC (Open, High, Low, Close) market data from multiple cryptocurrency exchanges including Binance, Bybit, Coinbase, OKX, Kraken, and KuCoin (spot and futures markets where applicable). It normalizes exchange-specific APIs, supports flexible timestamp inputs, custom intervals, and returns data as pandas DataFrames suitable for quantitative analysis, backtesting, and academic research in market microstructure, cross-exchange arbitrage, and algorithmic trading.",
+  "creators": [
+    {
+      "name": "Lazarev, Evgenii",
+      "affiliation": "",
+      "orcid": "0009-0000-1398-7842"
+    }
+  ],
+  "keywords": [
+    "OHLC",
+    "OHLCV",
+    "cryptocurrency",
+    "market-data",
+    "quantitative-finance",
+    "backtesting",
+    "algorithmic-trading",
+    "binance",
+    "bybit",
+    "coinbase",
+    "okx",
+    "kraken",
+    "kucoin",
+    "pandas",
+    "python"
+  ],
+  "license": "MIT",
+  "upload_type": "software",
+  "access_right": "open",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/eslazarev/pricehub",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://pypi.org/project/pricehub/",
+      "relation": "isIdenticalTo",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://eslazarev.github.io/pricehub/",
+      "relation": "isDocumentedBy",
+      "scheme": "url"
+    }
+  ]
+}
