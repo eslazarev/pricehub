@@ -59,7 +59,7 @@ pytest --cov=pricehub
 
 ## Code of Conduct
 
-This project follows the [Contributor Covenant](https://www.contributor-covenant.org/version/2/1/code_of_conduct/). By participating, you agree to abide by its terms.
+This project follows the [Contributor Covenant 2.1](https://github.com/eslazarev/pricehub/blob/main/CODE_OF_CONDUCT.md). By participating, you agree to abide by its terms. Reports of unacceptable behavior can be sent to `elazarev@gmail.com`.
 
 ## License
 

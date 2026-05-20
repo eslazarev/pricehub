@@ -1,3 +1,88 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pricehub"
+version = "0.0.9"
+description = "Pricehub: Unified Python Package for Collecting OHLC Prices from Binance, Bybit, Coinbase, OKX, Kraken, KuCoin, and Bitget APIs into a DataFrame"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [
+    { name = "Evgenii Lazarev", email = "elazarev@gmail.com" },
+]
+keywords = [
+    "OHLC",
+    "OHLCV",
+    "prices",
+    "binance",
+    "bybit",
+    "coinbase",
+    "okx",
+    "kraken",
+    "kucoin",
+    "bitget",
+    "trading",
+    "finance",
+    "quant",
+    "algotrading",
+    "cryptocurrency",
+    "crypto",
+    "futures",
+    "spot",
+    "broker",
+    "exchange",
+    "market",
+    "quantitative",
+    "historical",
+    "candlestick",
+    "back-testing",
+    "dataframe",
+]
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Science/Research",
+    "Development Status :: 3 - Alpha",
+    "Topic :: Office/Business",
+    "Topic :: Office/Business :: Financial",
+    "Topic :: Office/Business :: Financial :: Investment",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Natural Language :: English",
+]
+dependencies = [
+    "pandas",
+    "pydantic>=2.0.1",
+    "arrow>=1.0.0",
+    "requests",
+]
+
+[project.urls]
+Documentation = "https://eslazarev.github.io/pricehub/"
+Source = "https://github.com/eslazarev/pricehub"
+Issues = "https://github.com/eslazarev/pricehub/issues"
+Changelog = "https://github.com/eslazarev/pricehub/releases"
+DOI = "https://doi.org/10.5281/zenodo.20304963"
+
+[tool.setuptools.packages.find]
+include = ["pricehub*"]
+exclude = ["tests*"]
+
 [tool.black]
 line-length = 120
 
@@ -6,7 +91,7 @@ check_untyped_defs = true
 disallow_untyped_defs = true
 disallow_incomplete_defs = true
 ignore_missing_imports = true
-exclude = ["conf", "venv", "env","tests", "tests_e2e"]
+exclude = ["conf", "venv", "env", "tests", "tests_e2e", "live_tests"]
 strict_equality = true
 pretty = true
 warn_redundant_casts = true
@@ -15,3 +100,6 @@ follow_imports="skip"
 
 [tool.pylint]
 max-line-length = 140
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
