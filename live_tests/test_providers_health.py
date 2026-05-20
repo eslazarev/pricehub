@@ -6,6 +6,7 @@ real data is returned. Not part of the unit test suite — run only by the
 """
 
 import datetime
+import os
 
 import pytest
 
@@ -27,10 +28,24 @@ BROKER_SYMBOLS = {
     "bitget_futures": "BTCUSDT",
 }
 
+# Exchanges that geo-block cloud provider IPs (Azure/AWS/GCP), including
+# GitHub Actions runners. The library works for end users on residential
+# or office networks; skipping here only avoids false-positive CI alerts.
+CLOUD_BLOCKED_BROKERS = {
+    "binance_spot",
+    "binance_futures",
+    "bybit_spot",
+    "bybit_linear",
+    "bybit_inverse",
+}
+
 
 @pytest.mark.parametrize("broker,symbol", sorted(BROKER_SYMBOLS.items()))
 def test_broker_returns_recent_data(broker: str, symbol: str) -> None:
     """Verify a broker returns at least one valid daily candle from the last 3 days."""
+    if os.environ.get("GITHUB_ACTIONS") == "true" and broker in CLOUD_BLOCKED_BROKERS:
+        pytest.skip(f"{broker} geo-blocks cloud IPs (GitHub Actions runners); run locally to verify")
+
     now = datetime.datetime.now(datetime.timezone.utc)
     end = now - datetime.timedelta(hours=2)
     start = end - datetime.timedelta(days=3)
