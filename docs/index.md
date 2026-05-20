@@ -30,6 +30,7 @@ The same call signature works across all supported brokers — switch venues by 
 | OKX      | ✅   | ✅      |
 | Kraken   | ✅   | —       |
 | KuCoin   | ✅   | ✅      |
+| Bitget   | ✅   | ✅      |
 
 ## Key Features
 

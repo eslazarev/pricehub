@@ -17,7 +17,7 @@ setup(
         "GitHub": "https://github.com/eslazarev",
         "LinkedIn": "https://www.linkedin.com/in/elazarev",
     },
-    description="Pricehub: Unified Python Package for Collecting OHLC Prices from Binance, Bybit, and Coinbase APIs into a DataFrame",
+    description="Pricehub: Unified Python Package for Collecting OHLC Prices from Binance, Bybit, Coinbase, OKX, Kraken, KuCoin, and Bitget APIs into a DataFrame",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     classifiers=[
@@ -51,6 +51,6 @@ setup(
         "requests",
     ],
     python_requires=">=3.8",
-    keywords="OHLC OHLCV prices binance bybit coinbase trading  finance quant algotrading cryptocurrency "
+    keywords="OHLC OHLCV prices binance bybit coinbase okx kraken kucoin bitget trading  finance quant algotrading cryptocurrency "
     "crypto futures spot broker exchange market quantitative historical candlestick back-testing dataframe",
 )

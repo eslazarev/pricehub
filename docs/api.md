@@ -53,6 +53,8 @@ Broker-specific extras are preserved (for example, Binance returns `Number of tr
 | `kraken_spot`      | Kraken   | Spot     |
 | `kucoin_spot`      | KuCoin   | Spot     |
 | `kucoin_futures`   | KuCoin   | Futures  |
+| `bitget_spot`      | Bitget   | Spot     |
+| `bitget_futures`   | Bitget   | Futures (USDT-M Perpetual) |
 
 ## Type Aliases
 

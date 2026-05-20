@@ -63,6 +63,38 @@ df = get_ohlc(
 
 Note KuCoin uses dash-separated symbols (`BTC-USDT`).
 
+## Bitget Spot — 1-Day Interval
+
+```python
+from pricehub import get_ohlc
+
+df = get_ohlc(
+    broker="bitget_spot",
+    symbol="BTCUSDT",
+    interval="1d",
+    start="2024-12-01",
+    end="2024-12-05",
+)
+```
+
+Returned columns: `Open`, `High`, `Low`, `Close`, `Volume`, `Quote volume`, `USDT volume`.
+
+## Bitget Futures (USDT-M Perpetual) — 1-Hour Interval
+
+```python
+from pricehub import get_ohlc
+
+df = get_ohlc(
+    broker="bitget_futures",
+    symbol="BTCUSDT",
+    interval="1h",
+    start="2024-12-01",
+    end="2024-12-02",
+)
+```
+
+`bitget_futures` fetches USDT-margined perpetual swaps from Bitget's historical futures endpoint. Returned columns: `Open`, `High`, `Low`, `Close`, `Volume`, `Quote volume`.
+
 ## KuCoin Futures — 1-Hour Interval
 
 ```python
