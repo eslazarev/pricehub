@@ -17,6 +17,7 @@ SupportedBroker = Literal[
     "okx_spot",
     "okx_futures",
     "kraken_spot",
+    "kraken_futures",
     "kucoin_spot",
     "kucoin_futures",
     "bitget_spot",

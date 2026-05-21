@@ -109,6 +109,22 @@ df = get_ohlc(
 )
 ```
 
+## Kraken Futures — 1-Hour Interval
+
+```python
+from pricehub import get_ohlc
+
+df = get_ohlc(
+    broker="kraken_futures",
+    symbol="PF_XBTUSD",
+    interval="1h",
+    start="2024-12-01",
+    end="2024-12-02",
+)
+```
+
+Kraken Futures uses its own symbol notation: `PF_XBTUSD` (multi-collateral perpetual) or `PI_XBTUSD` (inverse perpetual). Supported intervals: `1m`, `5m`, `15m`, `30m`, `1h`, `4h`, `12h`, `1d`, `1w`.
+
 ## Plot Daily Close — Binance Futures (Last Year)
 
 ```python

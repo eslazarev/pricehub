@@ -22,6 +22,7 @@ BROKER_SYMBOLS = {
     "okx_spot": "BTC-USDT",
     "okx_futures": "BTC-USDT-SWAP",
     "kraken_spot": "XBTUSD",
+    "kraken_futures": "PF_XBTUSD",
     "kucoin_spot": "BTC-USDT",
     "kucoin_futures": "XBTUSDTM",
     "bitget_spot": "BTCUSDT",

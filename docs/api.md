@@ -51,6 +51,7 @@ Broker-specific extras are preserved (for example, Binance returns `Number of tr
 | `okx_spot`         | OKX      | Spot     |
 | `okx_futures`      | OKX      | Futures  |
 | `kraken_spot`      | Kraken   | Spot     |
+| `kraken_futures`   | Kraken   | Futures (perpetual and dated) |
 | `kucoin_spot`      | KuCoin   | Spot     |
 | `kucoin_futures`   | KuCoin   | Futures  |
 | `bitget_spot`      | Bitget   | Spot     |

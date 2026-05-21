@@ -45,6 +45,7 @@ Effective trading begins with thorough data analysis, visualization, and backtes
 - OKX Spot
 - OKX Futures
 - Kraken Spot
+- Kraken Futures
 - KuCoin Spot
 - KuCoin Futures
 - Bitget Spot
