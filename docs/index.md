@@ -28,7 +28,7 @@ The same call signature works across all supported brokers — switch venues by 
 | Bybit    | ✅   | ✅ (Linear + Inverse) |
 | Coinbase | ✅   | —       |
 | OKX      | ✅   | ✅      |
-| Kraken   | ✅   | —       |
+| Kraken   | ✅   | ✅      |
 | KuCoin   | ✅   | ✅      |
 | Bitget   | ✅   | ✅      |
 
