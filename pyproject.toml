@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pricehub"
-version = "0.0.11"
+version = "0.0.12"
 description = "Pricehub: Unified Python Package for Collecting OHLC Prices from Binance, Bybit, Coinbase, OKX, Kraken, KuCoin, and Bitget APIs into a DataFrame"
 readme = "README.md"
 requires-python = ">=3.8"
