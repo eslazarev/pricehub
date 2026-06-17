@@ -18,7 +18,50 @@ Effective trading begins with thorough data analysis, visualization, and backtes
 
 📚 **Full documentation:** [https://eslazarev.github.io/pricehub/](https://eslazarev.github.io/pricehub/)
 
+## Quickstart
+
+```bash
+pip install pricehub
+```
+
+```python
+from pricehub import get_ohlc
+
+# One call, any exchange → a ready-to-use pandas DataFrame
+df = get_ohlc("binance_spot", "BTCUSDT", "1d", "2024-10-01", "2024-10-05")
+print(df)
+```
+
+Same call signature for every supported exchange and market — just change the broker:
+
+```python
+get_ohlc("bybit_linear",   "ETHUSDT",  "1h", "2024-10-01", "2024-10-02")
+get_ohlc("okx_futures",    "BTC-USDT", "4h", "2024-10-01", "2024-10-02")
+get_ohlc("kraken_spot",    "XBTUSDT",  "1d", "2024-10-01", "2024-10-05")
+```
+
+No API keys required for public market data. Large date ranges are paginated automatically.
+
+## Why PriceHub?
+
+Need OHLC candles from several crypto exchanges in Python? You *could* wire up each exchange SDK yourself, or wrangle a heavier general-purpose library. PriceHub does one thing well: **a single function that returns a clean `pandas.DataFrame` from any supported exchange.**
+
+| | **PriceHub** | `ccxt` | single-exchange SDKs<br>(`python-binance`, …) |
+|---|:---:|:---:|:---:|
+| Unified interface across 7 exchanges | ✅ | ✅ | ❌ (one exchange each) |
+| Returns a `pandas.DataFrame` directly | ✅ | ❌ (list of lists) | ❌ (raw JSON) |
+| Pagination over large date ranges | ✅ (default) | ⚙️ (opt-in `paginate`) | ❌ (manual) |
+| All raw fields from the official API | ✅ | ❌ (OHLCV only) | ✅ |
+| No API keys for public data | ✅ | ✅ | ✅ |
+| Lightweight dependencies | ✅ (4) | ❌ (more) | varies |
+| Focused scope (OHLC only) | ✅ | ❌ (full trading) | ❌ (full trading) |
+
+**Use PriceHub when** you need historical/recent OHLC data for backtesting, research, ML datasets, or dashboards — without per-exchange boilerplate.
+**Reach for `ccxt`** when you need full trading functionality (placing orders, balances, websockets) across dozens of venues.
+
 ## Contents
+- [Quickstart](#quickstart)
+- [Why PriceHub?](#why-pricehub)
 - [Supported Brokers](#supported-brokers)
 - [Key Features](#key-features)
 - [Supported Intervals](#supported-intervals)
